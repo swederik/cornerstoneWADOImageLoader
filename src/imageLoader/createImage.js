@@ -141,7 +141,7 @@ function createImage (imageId, pixelData, transferSyntax, options) {
         image.getPixelData = () => results.intPixelData;
 
         // Update the size for cache purposes
-        image.sizeInBytes = floatPixelData.byteLength + results.intPixelData.byteLength,
+        image.sizeInBytes = floatPixelData.byteLength + results.intPixelData.byteLength;
       } else {
         image.getPixelData = () => imageFrame.pixelData;
       }
