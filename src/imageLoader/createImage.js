@@ -119,7 +119,7 @@ function createImage (imageId, pixelData, transferSyntax, options) {
         maxPixelValue: imageFrame.largestPixelValue,
         rowPixelSpacing: imagePlaneModule.rowPixelSpacing,
         rows: imageFrame.rows,
-        sizeInBytes: imageFrame.pixelData.length,
+        sizeInBytes: imageFrame.pixelData.byteLength,
         slope: modalityLutModule.rescaleSlope ? modalityLutModule.rescaleSlope : 1,
         width: imageFrame.columns,
         windowCenter: voiLutModule.windowCenter ? voiLutModule.windowCenter[0] : undefined,
@@ -139,6 +139,9 @@ function createImage (imageId, pixelData, transferSyntax, options) {
         image.intercept = results.intercept;
         image.floatPixelData = floatPixelData;
         image.getPixelData = () => results.intPixelData;
+
+        // Update the size for cache purposes
+        image.sizeInBytes = floatPixelData.byteLength + results.intPixelData.byteLength,
       } else {
         image.getPixelData = () => imageFrame.pixelData;
       }
